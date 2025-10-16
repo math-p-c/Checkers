@@ -1,5 +1,6 @@
 """Avaliador se peças estão prestes a ser promovidas."""
 
+from core.position import Position
 from .base_evaluator import BaseEvaluator
 from ..board_state import BoardState
 from ..enums import PlayerColor
@@ -28,15 +29,35 @@ class PieceAboutToPromoteEvaluator(BaseEvaluator):
 
         for piece in allpieces:
             if color == PlayerColor.RED:
-                if piece.color == PlayerColor.RED and piece.position.row == 1 and piece.is_king() == False and (board.get_piece(piece.position.row-1, piece.position.col-1) == None or board.get_piece(piece.position.row-1, piece.position.col+1) == None):
-                    boardStateValue += 1.5
-                if piece.color == PlayerColor.BLACK and piece.position.row == 6 and piece.is_king() == False and (board.get_piece(piece.position.row+1, piece.position.col-1) == None or board.get_piece(piece.position.row+1, piece.position.col+1) == None):
-                    boardStateValue -= 1.5
+                if piece.color == PlayerColor.RED and piece.position.row == 1 and piece.is_king() == False:
+                    if piece.position.col-1 >= 0:
+                        if board.get_piece(Position(piece.position.row-1, piece.position.col-1)) == None:
+                            boardStateValue += 1.5
+                    if piece.position.col+1 <= 7:
+                        if board.get_piece(Position(piece.position.row-1, piece.position.col-1)) == None:
+                            boardStateValue += 1.5
+                if piece.color == PlayerColor.BLACK and piece.position.row == 6 and piece.is_king() == False:
+                    if piece.position.col-1 >= 0:
+                        if board.get_piece(Position(piece.position.row+1, piece.position.col-1)) == None:
+                            boardStateValue -= 1.5
+                    if piece.position.col+1 <= 7:
+                        if board.get_piece(Position(piece.position.row+1, piece.position.col-1)) == None:
+                            boardStateValue -= 1.5
             else:
-                if piece.color == PlayerColor.BLACK and piece.position.row == 6 and piece.is_king() == False and (board.get_piece(piece.position.row+1, piece.position.col-1) == None or board.get_piece(piece.position.row+1, piece.position.col+1) == None):
-                    boardStateValue += 1.5
-                if piece.color == PlayerColor.RED and piece.position.row == 1 and piece.is_king() == False and (board.get_piece(piece.position.row-1, piece.position.col-1) == None or board.get_piece(piece.position.row-1, piece.position.col+1) == None):
-                    boardStateValue -= 1.5
+                if piece.color == PlayerColor.RED and piece.position.row == 1 and piece.is_king() == False:
+                    if piece.position.col-1 >= 0:
+                        if board.get_piece(Position(piece.position.row-1, piece.position.col-1)) == None:
+                            boardStateValue -= 1.5
+                    if piece.position.col+1 <= 7:
+                        if board.get_piece(Position(piece.position.row-1, piece.position.col-1)) == None:
+                            boardStateValue -= 1.5
+                if piece.color == PlayerColor.BLACK and piece.position.row == 6 and piece.is_king() == False:
+                    if piece.position.col-1 >= 0:
+                        if board.get_piece(Position(piece.position.row+1, piece.position.col-1)) == None:
+                            boardStateValue += 1.5
+                    if piece.position.col+1 <= 7:
+                        if board.get_piece(Position(piece.position.row+1, piece.position.col-1)) == None:
+                            boardStateValue += 1.5
 
         # Retornar diferença
         return boardStateValue

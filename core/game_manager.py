@@ -1,6 +1,8 @@
 """Gerenciador do estado do jogo."""
 
 from typing import List, Optional
+
+from core.evaluation.amp_evaluator import AMPEvaluator
 from .board_state import BoardState
 from .move import Move
 from .position import Position
@@ -66,6 +68,7 @@ class GameManager:
     def _initialize_players(self) -> None:
         """Inicializa os jogadores conforme o modo de jogo."""
         from .evaluation import PieceCountEvaluator
+        from .evaluation import amp_evaluator
 
         if self.game_mode == GameMode.HUMAN_VS_HUMAN:
             # Ambos são humanos
@@ -84,7 +87,7 @@ class GameManager:
             # Ambos são IA
             self.red_player = AIPlayer(
                 color=PlayerColor.RED,
-                evaluator=PieceCountEvaluator(),
+                evaluator=AMPEvaluator(),
                 difficulty=self.difficulty,
                 name="IA Vermelha"
             )
