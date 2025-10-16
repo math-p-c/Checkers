@@ -17,8 +17,8 @@ class PieceCountEvaluator(BaseEvaluator):
     """
 
     # Pesos para diferentes tipos de peças
-    NORMAL_PIECE_VALUE = 1.0
-    KING_PIECE_VALUE = 3.0
+    NORMAL_PIECE_VALUE = 2.0
+    KING_PIECE_VALUE = 4.0
 
     def evaluate(self, board: BoardState, color: PlayerColor) -> float:
         """

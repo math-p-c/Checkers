@@ -27,8 +27,23 @@ class PieceOnSidesEvaluator(BaseEvaluator):
         boardStateValue = 0.0
 
         for piece in allpieces:
-            if piece.color == color and (board.g
-                boardStateValue += 0.3
+            if piece.color == color and (board.get_piece(piece.position.row+1, piece.position.col+1).color == color.opposite and (board.get_piece(piece.position.row+2, piece.position.col+2) == None) and piece.position.row+2<8 and piece.position.col+2<8):
+                boardStateValue += 1
+            if piece.color == color and (board.get_piece(piece.position.row-1, piece.position.col+1).color == color.opposite and (board.get_piece(piece.position.row-2, piece.position.col+2) == None) and piece.position.row-2>=0 and piece.position.col+2<8):
+                boardStateValue += 1
+            if piece.color == color and (board.get_piece(piece.position.row+1, piece.position.col-1).color == color.opposite and (board.get_piece(piece.position.row+2, piece.position.col-2) == None) and piece.position.row+2<8 and piece.position.col-2>=0):
+                boardStateValue += 1
+            if piece.color == color and (board.get_piece(piece.position.row-1, piece.position.col-1).color == color.opposite and (board.get_piece(piece.position.row-2, piece.position.col-2) == None) and piece.position.row-2>=0 and piece.position.col-2>=0):
+                boardStateValue += 1
+            
+            if piece.color == color and (board.get_piece(piece.position.row+1, piece.position.col+1).color == color.opposite and (board.get_piece(piece.position.row+2, piece.position.col+2) == None) and piece.position.row+2<8 and piece.position.col+2<8):
+                boardStateValue -= 1
+            if piece.color == color and (board.get_piece(piece.position.row-1, piece.position.col+1).color == color.opposite and (board.get_piece(piece.position.row-2, piece.position.col+2) == None) and piece.position.row-2>=0 and piece.position.col+2<8):
+                boardStateValue -= 1
+            if piece.color == color and (board.get_piece(piece.position.row+1, piece.position.col-1).color == color.opposite and (board.get_piece(piece.position.row+2, piece.position.col-2) == None) and piece.position.row+2<8 and piece.position.col-2>=0):
+                boardStateValue -= 1
+            if piece.color == color and (board.get_piece(piece.position.row-1, piece.position.col-1).color == color.opposite and (board.get_piece(piece.position.row-2, piece.position.col-2) == None) and piece.position.row-2>=0 and piece.position.col-2>=0):
+                boardStateValue -= 1
         
         # Retornar resultado
         return boardStateValue
