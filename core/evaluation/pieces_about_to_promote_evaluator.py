@@ -34,14 +34,14 @@ class PieceAboutToPromoteEvaluator(BaseEvaluator):
                         if board.get_piece(Position(piece.position.row-1, piece.position.col-1)) == None:
                             boardStateValue += 1.5
                     if piece.position.col+1 <= 7:
-                        if board.get_piece(Position(piece.position.row-1, piece.position.col-1)) == None:
+                        if board.get_piece(Position(piece.position.row-1, piece.position.col+1)) == None:
                             boardStateValue += 1.5
                 if piece.color == PlayerColor.BLACK and piece.position.row == 6 and piece.is_king() == False:
                     if piece.position.col-1 >= 0:
                         if board.get_piece(Position(piece.position.row+1, piece.position.col-1)) == None:
                             boardStateValue -= 1.5
                     if piece.position.col+1 <= 7:
-                        if board.get_piece(Position(piece.position.row+1, piece.position.col-1)) == None:
+                        if board.get_piece(Position(piece.position.row+1, piece.position.col+1)) == None:
                             boardStateValue -= 1.5
             else:
                 if piece.color == PlayerColor.RED and piece.position.row == 1 and piece.is_king() == False:
@@ -49,14 +49,14 @@ class PieceAboutToPromoteEvaluator(BaseEvaluator):
                         if board.get_piece(Position(piece.position.row-1, piece.position.col-1)) == None:
                             boardStateValue -= 1.5
                     if piece.position.col+1 <= 7:
-                        if board.get_piece(Position(piece.position.row-1, piece.position.col-1)) == None:
+                        if board.get_piece(Position(piece.position.row-1, piece.position.col+1)) == None:
                             boardStateValue -= 1.5
                 if piece.color == PlayerColor.BLACK and piece.position.row == 6 and piece.is_king() == False:
                     if piece.position.col-1 >= 0:
                         if board.get_piece(Position(piece.position.row+1, piece.position.col-1)) == None:
                             boardStateValue += 1.5
                     if piece.position.col+1 <= 7:
-                        if board.get_piece(Position(piece.position.row+1, piece.position.col-1)) == None:
+                        if board.get_piece(Position(piece.position.row+1, piece.position.col+1)) == None:
                             boardStateValue += 1.5
 
         # Retornar diferença
