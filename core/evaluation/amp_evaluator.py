@@ -1,4 +1,4 @@
-"""Avaliador que reune todas as regras dos outros arquivos."""
+"""Avaliador de Checkers do grupo AMP - Agda Silva, Matheus Cardoso, Pedro Carvalho"""
 
 from core.position import Position
 from .base_evaluator import BaseEvaluator
@@ -9,8 +9,8 @@ from ..enums import PlayerColor
 class AMPEvaluator(BaseEvaluator):
 
     # Pesos para diferentes tipos de peças
-    NORMAL_PIECE_VALUE = 2.0
-    KING_PIECE_VALUE = 4.0
+    NORMAL_PIECE_VALUE = 2.3
+    KING_PIECE_VALUE = 3.8
 
     def evaluate(self, board: BoardState, color: PlayerColor) -> float:
 
@@ -38,46 +38,46 @@ class AMPEvaluator(BaseEvaluator):
         for piece in allpieces:
             if piece.position.row+2<=7 and piece.position.col+2<=7:
                 if piece.color == color and board.get_piece(Position(piece.position.row+1, piece.position.col+1)) != None and piece.position.row+2<=7 and piece.position.col+2<=7:
-                    if board.get_piece(Position(piece.position.row+1, piece.position.col+1)).color == color.opposite and (board.get_piece(Position(piece.position.row+2, piece.position.col+2)) == None):
+                    if board.get_piece(Position(piece.position.row+1, piece.position.col+1)).color == color.opposite() and (board.get_piece(Position(piece.position.row+2, piece.position.col+2)) == None):
                         boardStateValue += 1
             if piece.position.row+2<=7 and piece.position.col-2>=0:
                 if piece.color == color and board.get_piece(Position(piece.position.row+1, piece.position.col-1)) != None:
-                    if board.get_piece(Position(piece.position.row+1, piece.position.col-1)).color == color.opposite and (board.get_piece(Position(piece.position.row+2, piece.position.col-2)) == None):
+                    if board.get_piece(Position(piece.position.row+1, piece.position.col-1)).color == color.opposite() and (board.get_piece(Position(piece.position.row+2, piece.position.col-2)) == None):
                         boardStateValue += 1
             if piece.position.row-2>=0 and piece.position.col+2<=7:
                 if piece.color == color and board.get_piece(Position(piece.position.row-1, piece.position.col+1)) != None:
-                    if board.get_piece(Position(piece.position.row-1, piece.position.col+1)).color == color.opposite and (board.get_piece(Position(piece.position.row-2, piece.position.col+2)) == None):
+                    if board.get_piece(Position(piece.position.row-1, piece.position.col+1)).color == color.opposite() and (board.get_piece(Position(piece.position.row-2, piece.position.col+2)) == None):
                         boardStateValue += 1
             if piece.position.row-2>=0 and piece.position.col-2>=0:
                 if piece.color == color and board.get_piece(Position(piece.position.row-1, piece.position.col-1)) != None:
-                    if board.get_piece(Position(piece.position.row-1, piece.position.col-1)).color == color.opposite and (board.get_piece(Position(piece.position.row-2, piece.position.col-2)) == None):
+                    if board.get_piece(Position(piece.position.row-1, piece.position.col-1)).color == color.opposite() and (board.get_piece(Position(piece.position.row-2, piece.position.col-2)) == None):
                         boardStateValue += 1
             
             if piece.position.row+2<=7 and piece.position.col+2<=7:
-                if piece.color == color.opposite and board.get_piece(Position(piece.position.row+1, piece.position.col+1)) != None:
+                if piece.color == color.opposite() and board.get_piece(Position(piece.position.row+1, piece.position.col+1)) != None:
                     if board.get_piece(Position(piece.position.row+1, piece.position.col+1)).color == color and (board.get_piece(Position(piece.position.row+2, piece.position.col+2)) == None):
-                        boardStateValue -= 1
+                        boardStateValue -= 2
             if piece.position.row+2<=7 and piece.position.col-2>=0:
-                if piece.color == color.opposite and board.get_piece(Position(piece.position.row+1, piece.position.col-1)) != None:
+                if piece.color == color.opposite() and board.get_piece(Position(piece.position.row+1, piece.position.col-1)) != None:
                     if board.get_piece(Position(piece.position.row+1, piece.position.col-1)).color == color and (board.get_piece(Position(piece.position.row+2, piece.position.col-2)) == None):
-                        boardStateValue -= 1
+                        boardStateValue -= 2
             if piece.position.row-2>=0 and piece.position.col+2<=7:
-                if piece.color == color.opposite and board.get_piece(Position(piece.position.row-1, piece.position.col+1)) != None:
+                if piece.color == color.opposite() and board.get_piece(Position(piece.position.row-1, piece.position.col+1)) != None:
                     if board.get_piece(Position(piece.position.row-1, piece.position.col+1)).color == color and (board.get_piece(Position(piece.position.row-2, piece.position.col+2)) == None):
-                        boardStateValue -= 1
+                        boardStateValue -= 2
             if piece.position.row-2>=0 and piece.position.col-2>=0:
-                if piece.color == color.opposite and board.get_piece(Position(piece.position.row-1, piece.position.col-1)) != None:
+                if piece.color == color.opposite() and board.get_piece(Position(piece.position.row-1, piece.position.col-1)) != None:
                     if board.get_piece(Position(piece.position.row-1, piece.position.col-1)).color == color and (board.get_piece(Position(piece.position.row-2, piece.position.col-2)) == None):
-                        boardStateValue -= 1
+                        boardStateValue -= 2
             
         
         #Verificando se estão nas bordas
         for piece in allpieces:
             if piece.position.col == 0 or piece.position.col == 7:
                 if piece.color == color:
-                    boardStateValue += 0.3
+                    boardStateValue += 0.35
                 else:
-                    boardStateValue -= 0.3
+                    boardStateValue -= 0.35
 
         #Verificando estão prestes a serem promovidas
         for piece in allpieces:
