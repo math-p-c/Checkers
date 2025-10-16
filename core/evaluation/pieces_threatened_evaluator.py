@@ -5,7 +5,7 @@ from ..board_state import BoardState
 from ..enums import PlayerColor
 
 
-class PieceOnSidesEvaluator(BaseEvaluator):
+class PiecesThreatenedEvaluator(BaseEvaluator):
     """
     Avaliador que conta peças que, em um determinado estado, estarão ameaçadas.
     """

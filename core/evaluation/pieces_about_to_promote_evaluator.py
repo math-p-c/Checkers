@@ -5,7 +5,7 @@ from ..board_state import BoardState
 from ..enums import PlayerColor
 
 
-class PieceOnSidesEvaluator(BaseEvaluator):
+class PieceAboutToPromoteEvaluator(BaseEvaluator):
     """
     Avaliador que conta peças nas penultimas linhas do tabuleiro.
     """
